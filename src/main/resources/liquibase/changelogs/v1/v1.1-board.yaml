@@ -1,0 +1,48 @@
+databaseChangeLog:
+  # create board table
+  -  changeSet:
+      id:  1
+      author:  HoonK
+      changes:
+      -  createTable:
+          tableName:  board
+          columns:
+          -  column:
+              name:  idx
+              type:  int
+              autoIncrement:  true
+              # primary key : idx
+              constraints:
+                primaryKeyName: board_pkey
+                primaryKey:  true
+                nullable:  false
+          -  column:
+              name:  title
+              type:  varchar(100)
+          -  column:
+              name:  contents
+              type:  varchar(100)
+          -  column:
+              name:  account_idx
+              type:  int
+              # foreign key : account(idx)
+              constraints:
+                  foreignKeyName: board_account_idx_fkey
+                  referencedTableName:  account
+                  referencedColumnNames:  idx
+      # sequence
+      - createSequence:
+          sequenceName: board_idx_seq
+
+  # create idx_board_title index
+  - changeSet:
+      id:  2
+      author:  HoonK
+      changes:
+      - createIndex:
+          indexName: idx_board_title
+          tableName: board
+          columns:
+          - column:
+              name: title
+              type: varchar(100)

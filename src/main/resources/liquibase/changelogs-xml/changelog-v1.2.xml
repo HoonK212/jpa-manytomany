@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- create recommend table -->
+    <changeSet id="1" author="HoonK">
+        <createTable tableName="recommend">
+            <column name="idx" type="int" autoIncrement="true">
+                <!-- primary key : idx -->
+                <constraints primaryKeyName="recommend_pkey" primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="account_idx" type="int">
+                <!-- foreign key : account(idx) -->
+                <constraints foreignKeyName="recommend_account_idx_fkey"
+                             referencedTableName="account" referencedColumnNames="idx"/>
+            </column>
+            <column name="board_idx" type="int">
+                <!-- foreign key : board(idx) -->
+                <constraints foreignKeyName="recommend_board_idx_fkey"
+                             referencedTableName="board" referencedColumnNames="idx"/>
+            </column>
+        </createTable>
+
+        <!-- sequences -->
+        <createSequence sequenceName="recommend_idx_seq"/>
+    </changeSet>
+
+    <!-- add recommend_account_idx_board_idx_key constraint -->
+    <changeSet id="2" author="HoonK">
+        <!-- unique key : recommend(account_idx, board_idx) -->
+        <addUniqueConstraint constraintName="recommend_account_idx_board_idx_key"
+                             tableName="recommend" columnNames="account_idx, board_idx"/>
+    </changeSet>
+
+</databaseChangeLog>

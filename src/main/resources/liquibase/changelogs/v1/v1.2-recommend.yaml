@@ -1,0 +1,47 @@
+databaseChangeLog:
+  # create recommend table
+  -  changeSet:
+      id:  1
+      author:  HoonK
+      changes:
+      -  createTable:
+          tableName:  recommend
+          columns:
+          -  column:
+              name:  idx
+              type:  int
+              autoIncrement:  true
+              # primary key : idx
+              constraints:
+                primaryKeyName: recommend_pkey
+                primaryKey:  true
+                nullable:  false
+          -  column:
+              name:  account_idx
+              type:  int
+              # foreign key : account(idx)
+              constraints:
+                  foreignKeyName: recommend_account_idx_fkey
+                  referencedTableName:  account
+                  referencedColumnNames:  idx
+          -  column:
+              name:  board_idx
+              type:  int
+              # foreign key : account(idx)
+              constraints:
+                foreignKeyName: recommend_board_idx_fkey
+                referencedTableName:  board
+                referencedColumnNames:  idx
+      # sequence
+      - createSequence:
+          sequenceName: recommend_idx_seq
+
+  # add recommend_account_idx_board_idx_key constraint
+  - changeSet:
+      id:  2
+      author:  HoonK
+      changes:
+      - addUniqueConstraint:
+          constraintName: recommend_account_idx_board_idx_key
+          tableName: recommend
+          columnNames: account_idx, board_idx

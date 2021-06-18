@@ -1,0 +1,13 @@
+package toyproject.toyproject_manytomany;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ToyprojectManytomanyApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

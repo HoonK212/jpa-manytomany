@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- create board table -->
+    <changeSet id="1" author="HoonK">
+        <createTable tableName="board">
+            <column name="idx" type="int" autoIncrement="true">
+                <!-- primary key : idx -->
+                <constraints primaryKeyName="board_pkey" primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="title" type="varchar(100)"/>
+            <column name="contents" type="varchar(100)"/>
+            <column name="account_idx" type="int">
+                <!-- foreign key : account(idx) -->
+                <constraints foreignKeyName="board_account_idx_fkey"
+                             referencedTableName="account" referencedColumnNames="idx"/>
+            </column>
+        </createTable>
+
+        <!-- sequences -->
+        <createSequence sequenceName="board_idx_seq"/>
+    </changeSet>
+
+    <!-- create idx_board_title index -->
+    <changeSet id="2" author="HoonK">
+        <createIndex indexName="idx_board_title" tableName="board">
+            <column name="title" type="varchar(100)"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

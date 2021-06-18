@@ -1,0 +1,40 @@
+databaseChangeLog:
+  # create account table
+  -  changeSet:
+      id:  1
+      author:  HoonK
+      changes:
+      -  createTable:
+          tableName:  account
+          columns:
+          -  column:
+              name:  idx
+              type:  int
+              autoIncrement:  true
+              # primary key : idx
+              constraints:
+                primaryKeyName: account_pkey
+                primaryKey:  true
+                nullable:  false
+          -  column:
+              name:  email
+              type:  varchar(100)
+          -  column:
+              name:  passwd
+              type:  varchar(100)
+      # sequence
+      - createSequence:
+          sequenceName: account_idx_seq
+
+  # create idx_account_email index
+  - changeSet:
+      id:  2
+      author:  HoonK
+      changes:
+      - createIndex:
+          indexName: idx_account_email
+          tableName: account
+          columns:
+          - column:
+              name: email
+              type: varchar(100)
