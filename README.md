@@ -1,1 +1,0 @@
-# jpa-manytomany
